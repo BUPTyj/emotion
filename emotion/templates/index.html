@@ -1,0 +1,137 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Blueket - Digital Agency & Portfolio HTML Template</title>
+      <!--Mega Tags-->
+      <meta name="description" content="Creative Agency, Marketing Agency Template">
+      <meta name="keywords" content="Creative Agency, Marketing Agency">
+      <meta name="author" content="SeparateWeb">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="theme-color" content="#111">
+      <!--Website Favicon Logo-->
+      <link href="{% static 'images/favicon.png' %}" rel="icon">
+      <!--Plugin CSS Files-->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/blueket.plugin.css' %}" rel="stylesheet">
+      <!-- google font -->
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
+      <!--Custom CSS File-->   
+      <link href="{% static 'css/style.css' %}" rel="stylesheet">
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link href="{% static 'css/colormode.css' %}" rel="stylesheet">
+   </head>
+   <body style="overflow: hidden;">
+      <!-- preloader code -->
+<!--      <div class="preloader">-->
+<!--         <div class="preloader_inner">0%</div>-->
+<!--         <div class="loaderlogo"><img src="images/logo-white.svg" alt="logo"></div>-->
+<!--      </div>-->
+      <!-- preloader code -->
+      
+      <!--Start header -->
+      <header class="header animation" style="top: 30px;">
+         <div class="container">
+            <div class="wrapper">
+               <!-- header logo -->
+               <div class="header-item-left">
+                  <a href="/" class="brandlogo">
+                  <img src="{% static 'images/logo-white.svg' %}" alt="logo" class="light">
+                  <img src="{% static 'images/logo-black.svg' %}" alt="logo" class="dark">
+                  </a>
+               </div>
+               <!-- header nav -->
+               <div class="header-item-center">
+                  <div class="overlay"></div>
+                  <nav class="menu animation" id="menu">
+                     <div class="menu-mobile-header">
+                        <button type="button" class="menu-mobile-arrow"><i class="fa-solid fa-angle-left"></i></button>
+                        <div class="menu-mobile-title"></div>
+                        <button type="button" class="menu-mobile-close"><i class="fa-solid fa-xmark"></i></button>
+                     </div>
+                     <ul class="menu-section">
+                        <li class="menu-item-has-children" style="
+                            gap:2.5rem;                       /* 链接间距 */
+                            font:28px/1.2 'Segoe UI',sans-serif;
+                            color:#0a0f1a;
+
+                            /* ── 重点的外观 ─────────────────────────────── */
+                            border:1px solid rgba(0,0,0,.15); /* 细灰描边 */
+                            border-radius:12px;               /* 圆角 */
+                            box-shadow:0 4px 10px rgba(0,0,0,.05); /* 轻阴影，显层次 */
+                            height: 70px;
+                            align-items: center;
+                            justify-content:center;
+                            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+                            width: 150px;
+                            margin-left: 0;
+                          ">
+                           <a href="/train" style="font-weight: bold; width: 100%; display: block; text-align: center;">训练</a>
+                        </li>
+                        <li class="menu-item-has-children" style="
+                            gap:2.5rem;                       /* 链接间距 */
+                            font:28px/1.2 'Segoe UI',sans-serif;
+                            color:#0a0f1a;
+
+                            /* ── 重点的外观 ─────────────────────────────── */
+                            border:1px solid rgba(0,0,0,.15); /* 细灰描边 */
+                            border-radius:12px;               /* 圆角 */
+                            box-shadow:0 4px 10px rgba(0,0,0,.05); /* 轻阴影，显层次 */
+                            height: 70px;
+                            align-items: center;
+                            justify-content:center;
+                            margin-left: 0;
+                            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+                            width: 150px;
+                          ">
+                           <a href="/inf" style="font-weight: bold; width: 100%; display: block; text-align: center;">推理</a>
+                        </li>
+                        <li class="darkmodeswitch">
+                           <div class="switch-wrapper"> <label class="switch" for="blueket"> <input type="checkbox" id="blueket"/>  <span class="slider round"></span> </label> </div>
+                        </li>
+                     </ul>
+                  </nav>
+               </div>
+               <!-- header action -->
+               <div class="header-item-right headeraction" style="width: 10%;">
+               </div>
+            </div>
+         </div>
+      </header>
+      <!--End header -->
+      
+      <!--start sw-hero-section -->
+      <section class="demo-1-hero bkbg0">
+         <div class="container-fluid">
+            <div class="row justify-content-center">
+               <div class="col-lg-12">
+                  <div class="demo-1-hero-part mb-0"> 
+                  <div class="hero-a-demo- sideimg1"><img src="{% static 'images/hero/hero-img-3.svg' %}" alt="img"></div>
+                  <div class="hero-content text-center">
+                     <h1 class="mb20 text-gradient-1 h1 wow fadeInUp" data-wow-delay=".2s">文本情感分析</h1>
+                     <p class="wow fadeInUp" data-wow-delay=".4s">基于Bert模型训练的文本情感分析系统，可将输入文本分为积极和消极两类，准确率高达95%</p>
+                     <div class="mt40">
+                        <a href="/inf" class="sw-btn sw-blue-btn wow fadeInUp" data-wow-delay=".6s">开始推理<i class="fa-solid fa-arrow-trend-up"></i></a>
+                        <p class="bottombtn wow fadeInUp" data-wow-delay=".6s">Quality Service ✨ Guaranteed</p>
+                     </div>
+                  </div>               
+               
+                  <div class="hero-a-demo- sideimg2"><img src="{% static 'images/hero/hero-img-4.svg' %}" alt="img"></div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </section>
+      <!--Plugin Js Files -->    
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/blueket.plugin.js' %}"></script>
+      <script src="{% static 'js/theme.darkmode.js' %}"></script>
+      <script src="{% static 'js/preloader.js' %}"></script>
+      <!--Custom Js File -->
+      <script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>

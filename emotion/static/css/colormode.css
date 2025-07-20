@@ -1,0 +1,115 @@
+/*********darkmode************/
+body.darkmode{background: var(--black-color); color: var(--white-color);} 
+.darkmode h1, .darkmode h2, .darkmode h3, .darkmode h4, .darkmode h5, .darkmode h6, .darkmode p{color: var(--white-color);}
+.darkmode .brandlogo .light{display: block;} 
+.darkmode .brandlogo .dark{display: none;} 
+.darkmode .footer-logo-sw .light{display: block;} 
+.darkmode .footer-logo-sw .dark{display: none;} 
+.darkmode .sidedarklogo{display: none;} 
+.darkmode .sidewhitelogo{display: block;} 
+.darkmode .demo-1-hero {  background: url(../images/background/swt-bg-design.png) no-repeat !important;}
+.darkmode .service-row-block { background: transparent;}
+.darkmode .text-gradient-1 { background: var(--gradient-0);    -webkit-background-clip: text;    -webkit-text-fill-color: transparent;} 
+.darkmode .header .menu>ul>li>a{  color: var(--white-color);}
+.darkmode .header .menu>ul>li .menu-subs { background: var(--black-bg-3);   border-top: 2px solid var(--color-yellow-lite); }
+.darkmode .header .menu>ul>li .menu-subs>ul>li>a { color: var(--white-color);}
+.darkmode .aboutblock  {background: var(--black-bg-1);} 
+.darkmode .counter-setdiv p { color: var(--color-yellow-lite);} 
+.darkmode .bkbg2 { background: transparent;}
+.darkmode .bkbg3 { background: transparent;}
+.darkmode .bkbg0 { background: transparent;}
+.darkmode .bkbg1 { background: transparent;}
+.darkmode .inline-btn { color: var(--white-color);}
+.darkmode .tech-block { background: var(--black-bg-2);} 
+.darkmode .bg-efffect-1:after {background: url(../images/shape/blur-3.png); background-position: right top;    background-size: 100%;    background-repeat: no-repeat;}
+.darkmode a.btgs { color: var(--bs-body-bg);  background: var(--black-bg-3);}
+.darkmode .sw-tabs-links .nav-tabs .nav-link { color: var(--white-color); background-color: var(--black-bg-2);}
+.darkmode .sticky { background: rgb(24 24 24 / 80%);}
+.darkmode .blueket-card-noise {    background: url(../images/shape/noise.png) var(--white-lite-2);    border-color: var(--bs-gray-700);}
+.darkmode .black-bg-1 { background: var(--black-bg-1);}
+.darkmode .darkbg2{background: var(--black-bg-2);}
+.darkmode .bdrwor {border: 1px solid var(--black-bg-3);}
+.darkmode .bdrwor-rt {border-right: 1px solid var(--black-bg-3);} 
+.darkmode .cardlinkfooter {border-top: 1px solid var(--black-bg-3); }
+.darkmode .linkiconsw {border-left: 1px solid var(--black-bg-3); }
+.darkmode .swbluketcard:hover { background: var(--black-bg-2);}
+.darkmode .blueketcotactform-sw {  background: var(--black-bg-2); }
+.darkmode .contactinkediv a {  color: var(--white-color);}
+.darkmode .sw-orange-btn, .darkmode .sw-blue-btn, .darkmode .header-item-right .menu-icon { box-shadow: none;}
+.darkmode .footer-links ul li a { color: var(--white-color); }
+.darkmode .footerbg1:after {background: url(../images/shape/blur-6.png);    background-position: center bottom;    background-size: 80%;    background-repeat: no-repeat;}
+.darkmode .swhr {border-top: 1px solid var(--black-bg-3);}
+.darkmode .list-h-styled li a, .darkmode .footercreditnote a {color: var(--white-color);}
+.darkmode .list-h-styled li::after {background-color: var(--white-color);}
+.darkmode .footer-social-sw a { color: var(--white-color);}
+.darkmode .what-in-plan-sw {border-top: 2px solid var(--black-bg);} 
+.darkmode .form-controls { color: var(--white-color);   background-color: var(--black-bg-2);   border: 1px solid var(--black-bg-3);}
+.darkmode .blur-bg-a { opacity: 70%;}
+.darkmode .blur-bg-b { opacity: 40%;}
+.darkmode::-webkit-scrollbar-track { background: var(--black-bg);} 
+.darkmode .swbdr {    border: 1px solid var(--black-bg-3);}
+.darkmode .cardaclr a { color: var(--white-color);}
+.darkmode .swbdr:hover {border: 1px solid var(--bs-gray-600);  background: var(--black-bg-4);  box-shadow: 0px 10px 20px -5px rgb(0 0 0 / 10%);}
+.darkmode .sw-tabs-links .nav-tabs .nav-link:hover {   background-color: var(--orange-color);   color: var(--white-color);}
+.darkmode .dotinswbdr:before { border: 1px solid var(--white-color);}
+.darkmode .sw-tabs-links .nav-tabs .nav-item.show .nav-link, .darkmode .sw-tabs-links .nav-tabs .nav-link.active {  background-color: var(--orange-color);    border-color: transparent;    color: var(--white-color);}
+.darkmode .form-controls::placeholder {color: var(--white-color);}
+.darkmode .form-controls:-ms-input-placeholder { color: var(--white-color);}
+.darkmode .form-controls::-ms-input-placeholder { color: var(--white-color);}
+.darkmode .career-link-btn-sw a {   color: var(--white-color);}
+.darkmode .carrerlinkandimg { border: dashed 1px var(--black-bg-3);}
+.darkmode .carrerlinkandimg:hover { border-color: var(--orange-color);} 
+.darkmode .sw-hover-1 a:hover { color: var(--color-yellow-lite);} 
+.darkmode .sw-hover-2 a:hover { color: var(--color-yellow-lite);} 
+.darkmode .breadcrum-area { background: var(--black-bg-2);}
+.darkmode .overtheimg { background: var(--black-bg-2);} 
+.darkmode .accordion-button:not(.collapsed), .darkmode .accordion-button {color: var(--white-color);}
+.darkmode .dashedbdr { border: dashed 1px var(--black-bg-3);}
+.darkmode .dashedbdr:hover { border: dashed 1px var(--color-yellow-lite);}
+.darkmode .port-ref-link a span {color: var(--white-color);}
+.darkmode .filters li, .darkmode .teamsocialprofile div a {color: var(--white-color);}
+.darkmode .filters li.active {color: var(--bs-body-bg); background: var(--black-bg-3); border-bottom: 1px solid var(--orange-color);}
+.darkmode .latestpost {border-bottom: 1px solid var(--black-bg-3);} 
+.darkmode .cardtitlemain, .darkmode .contactnumberdiv a { color: var(--white-color);}
+.darkmode .itmquickinfo a {color: var(--white-color);}
+.darkmode .pagination-block .page-link { color: var(--bs-body-bg);  background-color: var(--black-bg-2);  border: 1px solid var(--black-bg-3);}
+.darkmode .pagination-block .page-link:hover { background: var(--black-bg-3);}
+.darkmode .sidebartitle h6 { color: var(--black-color-0);} 
+.darkmode .blog-postinfos span {color: var(--bs-body-bg);}
+.darkmode .scriptheading {color: var(--orange-color);} 
+.darkmode .carrerlinkandimg:hover { border-color: var(--color-yellow-lite);} 
+.darkmode .list-h-styled li {color: var(--color-yellow-lite);}
+.darkmode .blogstags, .darkmode .offcanvas { background: var(--black-bg-3);  color: var(--white-color);}
+.darkmode .contactpagefullform {background: var(--black-bg-2);} 
+.darkmode .connectwithus a {color: var(--white-color);}
+.darkmode .mediainfoblock a.contactlink, .darkmode .quote-text, .darkmode .techusedin-sw span  {color: var(--color-yellow-lite);}
+.darkmode .techusedin-sw span:after { background-color: var(--color-yellow-lite);}
+.darkmode .img-client-logo-cell { border: 1px solid var(--white-lite-2);}
+.darkmode .fwc h2, .darkmode .fwc p, .darkmode .fwc a{color: var(--black-color);}
+@media only screen and (max-width:1199px) { .darkmode .sticky {background: rgb(24 24 24 / 100%) !important;}  }
+/*update 1.2*/
+.darkmode.darkmode .black-bg-0 {background: var(--black-bg);}
+.darkmode .bgimg{background-repeat: no-repeat;    background-size: cover;    background-position: center center;}
+.darkmode .demo-3-hero {background: url(../images/shape/wave-bg-dark.svg);   background-repeat: no-repeat;   background-size: cover;   background-position: top center;}
+.darkmode .cardicon-out, .darkmode .sw-card {background: var(--black-bg-2);}
+.darkmode .sw-cl-3, .darkmode .sw-cl-2, .darkmode .sw-cl-1 { background: var(--black-bg-4);}
+.darkmode .header .menu>ul>li .menu-subs.menu-mega>.list-item>ul>li>a {color: var(--white-color);}
+/*update 1.3*/
+.darkmode .linebg {
+    background-image: repeating-linear-gradient(90deg, hsla(196,0%,79%,0.06) 0px, hsla(196,0%,79%,0.06) 1px,transparent 1px, transparent 96px),repeating-linear-gradient(0deg, hsla(196,0%,79%,0.06) 0px, hsla(196,0%,79%,0.06) 1px,transparent 1px, transparent 96px),repeating-linear-gradient(0deg, hsla(196,0%,79%,0.09) 0px, hsla(196,0%,79%,0.09) 1px,transparent 1px, transparent 12px),repeating-linear-gradient(90deg, hsla(196,0%,79%,0.09) 0px, hsla(196,0%,79%,0.09) 1px,transparent 1px, transparent 12px),linear-gradient(90deg, rgb(14 14 14),rgb(14 14 14));
+}
+.darkmode .form-control {background: var(--black-bg-2); border: 1px solid var(--black-bg-3);} 
+.darkmode .form-btm-set h5 {background: var(--black-bg-2);} 
+.darkmode .maplayer { background: linear-gradient(to right,var(--black-color) 80%,#ff1f8e00 100%);}
+.darkmode .contact-block-sw {background: var(--black-bg-2);}
+.darkmode .form-block input, .darkmode .form-block select, .darkmode .form-block textarea {background: var(--black-bg-2); color: var(--white-color);}
+.darkmode .floating-label label {   color: var(--white-color);    background: var(--black-bg-2);}
+.darkmode #contactform .error-label .error{  background: var(--black-bg-2);}
+.darkmode  .form-block input, .darkmode  .form-block select,  .darkmode  .form-block textarea {border-bottom: 2px solid var(--black-bg-3);}
+
+/*1.4*/
+.darkmode .demo2counter .counter-setdiv, .darkmode .demo-5-hero, .darkmode .frncnav {background: var(--black-bg-2);}
+.darkmode .roundiconwithdata, .darkmode .followaccounts .mediablock {border-color: var(--black-bg-3); background: var(--black-bg-2);}
+.darkmode .form-inputs label{color: var(--bg-b3);}
+.darkmode .bg--1, .darkmode  .ptbody-aa1 {background: var(--black-bg-2);}
+.darkmode .bg--2 {background: var(--black-bg-1);}

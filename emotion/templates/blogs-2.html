@@ -1,0 +1,363 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <title>Emotion</title>
+      <!--Mega Tags-->
+      <meta name="description" content="Creative Agency, Marketing Agency Template">
+      <meta name="keywords" content="Creative Agency, Marketing Agency">
+      <meta name="author" content="SeparateWeb">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="theme-color" content="#111">
+      <!--Website Favicon Logo-->
+      <link href="{% static 'images/favicon.png' %}" rel="icon">
+      <!--Plugin CSS Files-->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/blueket.plugin.css' %}" rel="stylesheet">
+      <!-- google font -->
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+      <!--Custom CSS File-->   
+      <link href="{% static 'css/style.css' %}" rel="stylesheet">
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link href="{% static 'css/colormode.css' %}" rel="stylesheet">
+       <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            /*display: flex;*/
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .output-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .output-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .prediction-result {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sentiment-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .sentiment-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .sentiment-label {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .positive .sentiment-label {
+            color: #4caf50;
+        }
+
+        .negative .sentiment-label {
+            color: #f44336;
+        }
+
+        .probability-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .probability-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .positive .probability-fill {
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+        }
+
+        .negative .probability-fill {
+            background: linear-gradient(90deg, #f44336, #ff5722);
+        }
+
+        .probability-text {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .raw-data {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .raw-data-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .raw-data-content {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #666;
+            word-break: break-all;
+        }
+
+        @media (max-width: 600px) {
+            .output-section {
+                margin: 10px;
+                padding: 20px;
+            }
+        }
+    </style>
+   </head>
+   <body style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+     <!--Start header -->
+     <header class="header animation" style="top: 30px;">
+         <div class="container">
+            <div class="wrapper">
+               <!-- header logo -->
+               <div class="header-item-left">
+                  <a href="/" class="brandlogo">
+                  <img src="{% static 'images/logo-white.svg' %}" alt="logo" class="light">
+                  <img src="{% static 'images/logo-black.svg' %}" alt="logo" class="dark">
+                  </a>
+               </div>
+               <!-- header nav -->
+               <div class="header-item-center">
+                  <div class="overlay"></div>
+                  <nav class="menu animation" id="menu">
+                     <div class="menu-mobile-header">
+                        <button type="button" class="menu-mobile-arrow"><i class="fa-solid fa-angle-left"></i></button>
+                        <div class="menu-mobile-title"></div>
+                        <button type="button" class="menu-mobile-close"><i class="fa-solid fa-xmark"></i></button>
+                     </div>
+                     <ul class="menu-section">
+                        <li class="menu-item-has-children" style="
+                            gap:2.5rem;                       /* 链接间距 */
+                            font:28px/1.2 'Segoe UI',sans-serif;
+                            color:#0a0f1a;
+
+                            /* ── 重点的外观 ─────────────────────────────── */
+                            border:1px solid rgba(0,0,0,.15); /* 细灰描边 */
+                            border-radius:12px;               /* 圆角 */
+                            box-shadow:0 4px 10px rgba(0,0,0,.05); /* 轻阴影，显层次 */
+                            height: 70px;
+                            align-items: center;
+                            justify-content:center;
+                            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+                            width: 150px;
+                            margin-left: 0;
+                          ">
+                           <a href="/train" style="font-weight: bold; width: 100%; display: block; text-align: center;">训练</a>
+                        </li>
+                        <li class="menu-item-has-children" style="
+                            gap:2.5rem;                       /* 链接间距 */
+                            font:28px/1.2 'Segoe UI',sans-serif;
+                            color:#0a0f1a;
+
+                            /* ── 重点的外观 ─────────────────────────────── */
+                            border:1px solid rgba(0,0,0,.15); /* 细灰描边 */
+                            border-radius:12px;               /* 圆角 */
+                            box-shadow:0 4px 10px rgba(0,0,0,.05); /* 轻阴影，显层次 */
+                            height: 70px;
+                            align-items: center;
+                            justify-content:center;
+                            margin-left: 0;
+                            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+                            width: 150px;
+                          ">
+                           <a href="/inf" style="font-weight: bold; width: 100%; display: block; text-align: center;">推理</a>
+                        </li>
+                        <li class="darkmodeswitch">
+                           <div class="switch-wrapper"> <label class="switch" for="blueket"> <input type="checkbox" id="blueket"/>  <span class="slider round"></span> </label> </div>
+                        </li>
+                     </ul>
+                  </nav>
+               </div>
+               <!-- header action -->
+               <div class="header-item-right headeraction" style="width: 10%;">
+               </div>
+            </div>
+         </div>
+      </header>
+   <!--End header -->
+      
+    <!-- Header End -->
+    <div class="blog-head pt85 pb120 bg--2" style="padding-bottom: 70px;">
+        <div class="container">
+           <div class="row pt80 justify-content-center text-center">
+              <div class="col-lg-12">
+                 <h2>请输入需要预测情感的句子</h2>
+                 <div class="mt40">
+                    <form>
+                       <div class="form-inputs heroform w-100">                 
+                          <input type="search" class="form-controls" placeholder="Predict Sentence">
+                           <style>
+                              .form-controls::placeholder{ color:rgba(155,163,176,.45); }
+                            </style>
+                          <button type="submit" class="sw-btn sw-orange-btn"><i class="fa-solid fa-paper-plane"></i></button>              
+                       </div>
+                    </form>
+                 </div>
+              </div>
+           </div>
+        </div>
+    </div>
+
+     <div class="output-section" id="outputSection">
+        <div class="output-title">预测结果</div>
+
+        <div class="prediction-result" id="predictionResult">
+            <div class="sentiment-card positive">
+                <div class="sentiment-label">积极情感</div>
+                <div class="probability-bar">
+                    <div class="probability-fill" id="positiveBar" style="width: 0%"></div>
+                </div>
+                <div class="probability-text" id="positiveText">0.00%</div>
+            </div>
+
+            <div class="sentiment-card negative">
+                <div class="sentiment-label">消极情感</div>
+                <div class="probability-bar">
+                    <div class="probability-fill" id="negativeBar" style="width: 0%"></div>
+                </div>
+                <div class="probability-text" id="negativeText">0.00%</div>
+            </div>
+        </div>
+    </div>
+
+    <!--Plugin Js Files -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/blueket.plugin.js' %}"></script>
+    <script src="{% static 'js/theme.darkmode.js' %}"></script>
+    <!--Custom Js File -->   
+    <script src="{% static 'js/custom.js' %}"></script>
+
+   <script>
+        function updatePredictionResult(probabilities) {
+            const [negativeProb, positiveProb] = probabilities;
+
+            // 更新概率条
+            document.getElementById('positiveBar').style.width = (positiveProb * 100) + '%';
+            document.getElementById('negativeBar').style.width = (negativeProb * 100) + '%';
+
+            // 更新百分比文本
+            document.getElementById('positiveText').textContent = (positiveProb * 100).toFixed(2) + '%';
+            document.getElementById('negativeText').textContent = (negativeProb * 100).toFixed(2) + '%';
+        }
+
+        // 演示用法
+        setTimeout(() => {
+            updatePredictionResult([0, 0]);
+        }, 1000);
+
+        // 获取表单元素
+        const form = document.querySelector('form');
+        const input = document.querySelector('input[type="search"]');
+        const button = document.querySelector('button[type="submit"]');
+
+        // 获取CSRF token (Django需要)
+        function getCSRFToken() {
+            return document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1];
+        }
+
+        // 处理表单提交
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // 阻止默认表单提交
+
+            const sentence = input.value.trim();
+
+            // 检查输入是否为空
+            if (!sentence) {
+                alert('请输入要预测的句子');
+                return;
+            }
+
+            // 禁用按钮，显示加载状态
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+            try {
+                // 发送POST请求到Django后端
+                const response = await fetch('/inf', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken(), // Django CSRF保护
+                    },
+                    body: JSON.stringify({
+                        sentence: sentence
+                    })
+                });
+
+                // 检查响应状态
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // 解析JSON响应
+                const data = await response.json();
+                updatePredictionResult(data.prob);
+
+            } catch (error) {
+                console.error('请求失败:', error);
+                alert('请求失败，请稍后重试');
+            } finally {
+                // 恢复按钮状态
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+            }
+        });
+
+        // 可选：回车键提交
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+  </body>
+</html>

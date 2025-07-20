@@ -1,0 +1,745 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器学习训练平台</title>
+    <link href="{% static 'images/favicon.png' %}" rel="icon">
+      <!--Plugin CSS Files-->
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/blueket.plugin.css' %}" rel="stylesheet">
+      <!-- google font -->
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+      <!--Custom CSS File-->
+      <link href="{% static 'css/style.css' %}" rel="stylesheet">
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link href="{% static 'css/colormode.css' %}" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-b0);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .bottom-row {
+            display: flex;
+            flex-direction: row; /* 主轴方向为水平 */
+            gap: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-start:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-stop {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        .btn-stop:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.4);
+        }
+
+        .btn-status {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            color: white;
+        }
+
+        .btn-status:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status-panel {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2196F3;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .status-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-label {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .status-value {
+            color: #333;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .logs {
+            background: #1a1a1a;
+            color: #00ff00;
+            border-radius: 10px;
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .error {
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .success {
+            color: #44ff44;
+            background: rgba(68, 255, 68, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .connection-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .connection-status.connected {
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .connection-status.disconnected {
+            background: #f44336;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header animation" style="top: 30px;">
+         <div class="container" style="box-shadow: none">
+            <div class="wrapper">
+               <!-- header logo -->
+               <div class="header-item-left">
+                  <a href="/" class="brandlogo">
+                  <img src="{% static 'images/logo-white.svg' %}" alt="logo" class="light">
+                  <img src="{% static 'images/logo-black.svg' %}" alt="logo" class="dark">
+                  </a>
+               </div>
+               <!-- header nav -->
+               <div class="header-item-center">
+                  <div class="overlay"></div>
+                  <nav class="menu animation" id="menu">
+                     <div class="menu-mobile-header">
+                        <button type="button" class="menu-mobile-arrow"><i class="fa-solid fa-angle-left"></i></button>
+                        <div class="menu-mobile-title"></div>
+                        <button type="button" class="menu-mobile-close"><i class="fa-solid fa-xmark"></i></button>
+                     </div>
+                     <ul class="menu-section">
+                        <li class="menu-item-has-children" style="
+                            gap:2.5rem;                       /* 链接间距 */
+                            font:28px/1.2 'Segoe UI',sans-serif;
+                            color:#0a0f1a;
+
+                            /* ── 重点的外观 ─────────────────────────────── */
+                            border:1px solid rgba(0,0,0,.15); /* 细灰描边 */
+                            border-radius:12px;               /* 圆角 */
+                            box-shadow:0 4px 10px rgba(0,0,0,.05); /* 轻阴影，显层次 */
+                            height: 70px;
+                            align-items: center;
+                            justify-content:center;
+                            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+                            width: 150px;
+                            margin-left: 0;
+                          ">
+                           <a href="/train" style="font-weight: bold; width: 100%; display: block; text-align: center;">训练</a>
+                        </li>
+                        <li class="menu-item-has-children" style="
+                            gap:2.5rem;                       /* 链接间距 */
+                            font:28px/1.2 'Segoe UI',sans-serif;
+                            color:#0a0f1a;
+
+                            /* ── 重点的外观 ─────────────────────────────── */
+                            border:1px solid rgba(0,0,0,.15); /* 细灰描边 */
+                            border-radius:12px;               /* 圆角 */
+                            box-shadow:0 4px 10px rgba(0,0,0,.05); /* 轻阴影，显层次 */
+                            height: 70px;
+                            align-items: center;
+                            justify-content:center;
+                            margin-left: 0;
+                            background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+                            width: 150px;
+                          ">
+                           <a href="/inf" style="font-weight: bold; width: 100%; display: block; text-align: center;">推理</a>
+                        </li>
+                     </ul>
+                  </nav>
+               </div>
+               <!-- header action -->
+               <div class="header-item-right headeraction" style="width: 10%;">
+               </div>
+            </div>
+         </div>
+     </header>
+
+    <div class="container" style="top: 150px; position: absolute; display: flex; flex-direction: column;">
+        <div class="controls">
+            <button class="btn-start" onclick="startTraining()">开始训练</button>
+            <button class="btn-stop" onclick="stopTraining()">停止训练</button>
+            <button class="btn-status" onclick="getTrainingResults()">获取结果</button>
+        </div>
+
+        <div class="bottom-row">
+            <div class="status-panel" style="width: 600px;">
+                <h5>
+                    <span class="connection-status disconnected" id="connectionStatus"></span>
+                    训练状态
+                </h5>
+
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-label">训练状态</div>
+                        <div class="status-value" id="isTraining">未开始</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">当前轮次</div>
+                        <div class="status-value" id="currentEpoch">0</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">总轮次</div>
+                        <div class="status-value" id="totalEpochs">0</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">当前步数</div>
+                        <div class="status-value" id="currentStep">0</div>
+                    </div>
+{#                    <div class="status-item">#}
+{#                        <div class="status-label">训练损失</div>#}
+{#                        <div class="status-value" id="trainLoss">0.000</div>#}
+{#                    </div>#}
+{#                    <div class="status-item">#}
+{#                        <div class="status-label">验证损失</div>#}
+{#                        <div class="status-value" id="evalLoss">0.000</div>#}
+{#                    </div>#}
+{#                    <div class="status-item">#}
+{#                        <div class="status-label">F1分数</div>#}
+{#                        <div class="status-value" id="evalF1">0.000</div>#}
+{#                    </div>#}
+{#                    <div class="status-item">#}
+{#                        <div class="status-label">准确率</div>#}
+{#                        <div class="status-value" id="evalAccuracy">0.000</div>#}
+{#                    </div>#}
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%">0%</div>
+                </div>
+            </div>
+
+            <div class="status-panel" style="width: 550px;">
+                <h5>📋 训练日志</h5>
+                <div class="logs" id="logs">
+                    <div class="log-entry">等待开始训练...</div>
+                </div>
+            </div>
+
+            <div class="status-panel" id="resultsPanel" style="display: none; width: 400px;">
+                <h5>📊 训练结果</h5>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <div class="status-label">训练集准确率</div>
+                        <div class="status-value" id="trainAccuracy">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">训练集F1分数</div>
+                        <div class="status-value" id="trainF1">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">训练集召回率</div>
+                        <div class="status-value" id="trainRecall">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">测试集准确率</div>
+                        <div class="status-value" id="testAccuracy">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">测试集F1分数</div>
+                        <div class="status-value" id="testF1">-</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-label">测试集召回率</div>
+                        <div class="status-value" id="testRecall">-</div>
+                    </div>
+                </div>
+
+                <div id="hyperparameters" style="margin-top: 20px;">
+                    <h5>⚙️ 训练参数</h5>
+                    <div id="hyperparamsList" style="background: #f8f9fa; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 配置
+        const API_BASE = 'http://localhost:8000';
+        let eventSource = null;
+        let isConnectedToStream = false;
+
+        // 添加状态缓存
+        let lastStatus = null;
+        let addedLogs = new Set();
+
+        // 开始训练
+        async function startTraining() {
+            try {
+                addLog('📤 发送开始训练请求...');
+
+                const response = await fetch(`${API_BASE}/start_training/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken()
+                    }
+                });
+
+                if (!response.ok) {
+                  const text = await response.text();         // 读取错误详情
+                  throw new Error(`HTTP ${response.status}: ${text}`);
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    addLog('✅ 训练已开始', 'success');
+                    // 开始监听训练状态流
+                    connectToTrainingStream();
+                } else {
+                    addLog(`❌ 开始训练失败: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                addLog(`❌ 请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 停止训练
+        async function stopTraining() {
+            try {
+                addLog('📤 发送停止训练请求...');
+
+                const response = await fetch(`${API_BASE}/stop_training/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken()
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    addLog(`✅ ${data.message}`, 'success');
+                } else {
+                    addLog(`❌ 停止训练失败: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                addLog(`❌ 请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 获取训练结果
+        async function getTrainingResults() {
+            try {
+                const response = await fetch(`${API_BASE}/get_training_results/`);
+                const result = await response.json();
+
+                if (result.success) {
+                    displayTrainingResults(result.data);
+                    addLog('📊 训练结果已加载', 'success');
+                } else {
+                    addLog(`❌ 获取结果失败: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                addLog(`❌ 获取结果失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 显示训练结果
+        function displayTrainingResults(data) {
+            const resultsPanel = document.getElementById('resultsPanel');
+            resultsPanel.style.display = 'block';
+
+            // 显示最终指标
+            if (data.final_metrics) {
+                const train = data.final_metrics.train || {};
+                const test = data.final_metrics.test || {};
+
+                document.getElementById('trainAccuracy').textContent =
+                    train.accuracy ? train.accuracy.toFixed(4) : '-';
+                document.getElementById('trainF1').textContent =
+                    train.f1 ? train.f1.toFixed(4) : '-';
+                document.getElementById('trainRecall').textContent =
+                    train.recall ? train.recall.toFixed(4) : '-';
+
+                document.getElementById('testAccuracy').textContent =
+                    test.accuracy ? test.accuracy.toFixed(4) : '-';
+                document.getElementById('testF1').textContent =
+                    test.f1 ? test.f1.toFixed(4) : '-';
+                document.getElementById('testRecall').textContent =
+                    test.recall ? test.recall.toFixed(4) : '-';
+            }
+
+            // 显示超参数
+            if (data.hyperparameters) {
+                const hyperparamsList = document.getElementById('hyperparamsList');
+                hyperparamsList.innerHTML = '';
+
+                for (const [key, value] of Object.entries(data.hyperparameters)) {
+                    const item = document.createElement('div');
+                    item.innerHTML = `<strong>${key}:</strong> ${value}`;
+                    item.style.marginBottom = '5px';
+                    hyperparamsList.appendChild(item);
+                }
+            }
+        }
+
+        // 获取训练状态
+        async function getTrainingStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/get_training_status/`);
+                const status = await response.json();
+
+                updateStatusDisplay(status);
+                addLog('📊 状态已更新');
+
+                return status;
+            } catch (error) {
+                addLog(`❌ 获取状态失败: ${error.message}`, 'error');
+            }
+        }
+
+        function hasStatusChanged(newStatus, oldStatus) {
+            if (!oldStatus) return true;
+
+            const keys = ['is_training', 'current_epoch', 'current_step', 'train_loss', 'eval_loss', 'eval_f1', 'eval_accuracy', 'progress_percent'];
+
+            for (let key of keys) {
+                if (newStatus[key] !== oldStatus[key]) {
+                    return true;
+                }
+            }
+
+            // 检查日志是否有新增
+            if (newStatus.logs && oldStatus.logs) {
+                return newStatus.logs.length !== oldStatus.logs.length;
+            }
+
+            return false;
+        }
+
+        // 连接到训练状态流
+        function connectToTrainingStream() {
+            if (eventSource) {
+                eventSource.close();
+            }
+
+            addLog('🔗 连接到训练状态流...');
+
+            eventSource = new EventSource(`${API_BASE}/training_stream/`);
+
+            eventSource.onopen = function(event) {
+                isConnectedToStream = true;
+                updateConnectionStatus(true);
+                addLog('✅ 已连接到训练状态流', 'success');
+            };
+
+            eventSource.onmessage = function(event) {
+                try {
+                    const status = JSON.parse(event.data);
+                    if (hasStatusChanged(status, lastStatus)) {
+                        updateStatusDisplay(status);
+                        lastStatus = JSON.parse(JSON.stringify(status)); // 深拷贝
+                    }
+
+                    // 如果训练完成，关闭连接并自动获取结果
+                    if (!status.is_training && status.progress_percent >= 100) {
+                        setTimeout(() => {
+                            eventSource.close();
+                            isConnectedToStream = false;
+                            updateConnectionStatus(false);
+                            addLog('🏁 训练完成，断开连接', 'success');
+
+                            // 自动获取训练结果
+                            setTimeout(() => {
+                                getTrainingResults();
+                            }, 1000);
+                        }, 2000);
+                    }
+                } catch (error) {
+                    addLog(`❌ 解析状态数据失败: ${error.message}`, 'error');
+                }
+            };
+
+            eventSource.onerror = function(event) {
+                isConnectedToStream = false;
+                updateConnectionStatus(false);
+                addLog('❌ 连接到训练状态流失败', 'error');
+
+                // 自动重连
+                setTimeout(() => {
+                    if (eventSource.readyState === EventSource.CLOSED) {
+                        addLog('🔄 尝试重新连接...');
+                        connectToTrainingStream();
+                    }
+                }, 5000);
+            };
+        }
+
+        // 更新状态显示
+        function updateStatusDisplay(status) {
+            // 批量更新 DOM，减少重排
+            const updates = [
+                ['isTraining', status.is_training ? '进行中' : '已停止'],
+                ['currentEpoch', status.current_epoch],
+                ['totalEpochs', status.total_epochs],
+                ['currentStep', status.current_step],
+                ['trainLoss', status.train_loss.toFixed(3)],
+                ['evalLoss', status.eval_loss.toFixed(3)],
+                ['evalF1', status.eval_f1.toFixed(3)],
+                ['evalAccuracy', status.eval_accuracy.toFixed(3)]
+            ];
+
+            // 使用 requestAnimationFrame 批量更新
+            requestAnimationFrame(() => {
+                updates.forEach(([id, value]) => {
+                    const element = document.getElementById(id);
+                    if (element && element.textContent !== value.toString()) {
+                        element.textContent = value;
+                    }
+                });
+
+                // 更新进度条
+                const progressPercent = Math.round(status.progress_percent);
+                const progressBar = document.getElementById('progressBar');
+                const currentWidth = progressBar.style.width;
+                const newWidth = `${progressPercent}%`;
+
+                if (currentWidth !== newWidth) {
+                    progressBar.style.width = newWidth;
+                    progressBar.textContent = newWidth;
+                }
+            });
+
+            // 处理新日志（只有当前没有的日志）
+            if (status.logs && status.logs.length > 0) {
+                // 只处理最新的几条日志，避免大量重复检查
+                const recentLogs = status.logs.slice(-10); // 只检查最近10条
+                recentLogs.forEach(log => {
+                    const logKey = `${log.trim()}-info`;
+                    if (!addedLogs.has(logKey)) {
+                        addLog(log);
+                    }
+                });
+            }
+
+            // 显示错误信息（只显示新错误）
+            if (status.error_message && (!lastStatus || status.error_message !== lastStatus.error_message)) {
+                addLog(`❌ 错误: ${status.error_message}`, 'error');
+            }
+        }
+
+        // 添加日志
+        function addLog(message, type = 'info') {
+            // 创建唯一标识
+            const logKey = `${message.trim()}-${type}`;
+
+            // 如果日志已存在，跳过
+            if (addedLogs.has(logKey)) {
+                return;
+            }
+
+            addedLogs.add(logKey);
+
+            const logsContainer = document.getElementById('logs');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${type}`;
+
+            const timestamp = new Date().toLocaleTimeString();
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logEntry.setAttribute('data-log-key', logKey); // 添加标识属性
+
+            // 使用 requestAnimationFrame 优化 DOM 操作
+            requestAnimationFrame(() => {
+                logsContainer.appendChild(logEntry);
+
+                // 只在有新内容时才滚动
+                if (logsContainer.children.length > 0) {
+                    logsContainer.scrollTop = logsContainer.scrollHeight;
+                }
+            });
+
+            // 清理旧日志
+            const logEntries = logsContainer.getElementsByClassName('log-entry');
+            if (logEntries.length > 100) {
+                const removedEntry = logEntries[0];
+                const removedKey = removedEntry.getAttribute('data-log-key');
+                if (removedKey) {
+                    addedLogs.delete(removedKey);
+                }
+                logsContainer.removeChild(removedEntry);
+            }
+        }
+
+        // 检查日志是否已存在
+        function isLogExists(message) {
+            const logEntries = document.getElementById('logs').getElementsByClassName('log-entry');
+            for (let entry of logEntries) {
+                if (entry.textContent.includes(message)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // 更新连接状态指示器
+        function updateConnectionStatus(connected) {
+            const statusIndicator = document.getElementById('connectionStatus');
+            statusIndicator.className = `connection-status ${connected ? 'connected' : 'disconnected'}`;
+        }
+
+        // 获取CSRF令牌
+        function getCsrfToken() {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'csrftoken') {
+                    return value;
+                }
+            }
+            return '';
+        }
+
+        // 页面加载完成后获取初始状态
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('🚀 界面已加载，获取初始状态...');
+            getTrainingStatus();
+        });
+
+        // 页面关闭时清理连接
+        window.addEventListener('beforeunload', function() {
+            if (eventSource) {
+                eventSource.close();
+            }
+        });
+    </script>
+</body>
+</html>

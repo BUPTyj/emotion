@@ -1,0 +1,18 @@
+<svg id="sketch" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 202.073 185.236">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.053" y1="0.218" x2="0.874" y2="0.635" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path id="Fill-1" d="M101.037,1,44.086,7.217,0,64.13l101.039,122.1L202.071,64.13,157.984,7.217Z" transform="translate(0.001 -1)" fill="#fdb300"/>
+  <path id="Fill-2" d="M0,8.5,101.039,130.6h0L40.924,8.5Z" transform="translate(0 54.632)" fill="#ea6c00"/>
+  <path id="Fill-3" d="M72.108,8.5,12,130.6h0L113.032,8.5Z" transform="translate(89.042 54.632)" fill="#ea6c00"/>
+  <path id="Fill-5" d="M8.022,7.217,4.861,64.13,64.974,1Z" transform="translate(36.065 -1)" fill="#fdd231"/>
+  <path id="Fill-6" d="M72.109,64.13,68.947,7.217,12,1Z" transform="translate(89.041 -1)" fill="#fdd231"/>
+  <path id="Fill-7" d="M21.926,58.651H62.85L18.764,1.738Z" transform="translate(139.224 4.479)" fill="#fdad00"/>
+  <path id="Fill-8" d="M0,58.651H40.924L44.086,1.738Z" transform="translate(0 4.479)" fill="#fdad00"/>
+  <path id="Fill-9" d="M64.974,1,4.861,64.13H125.082Z" transform="translate(36.065 -1)" fill="#feeeb7"/>
+  <path id="Fill-4" d="M4.86,8.5,64.975,130.6h0L125.086,8.5Z" transform="translate(36.063 54.632)" fill="#fdad00"/>
+  <path id="Fill-1_1_" d="M101.037,1,44.086,7.217,0,64.13l101.039,122.1L202.071,64.13,157.984,7.217Z" transform="translate(0.001 -1)" fill="url(#linear-gradient)"/>
+</svg>
