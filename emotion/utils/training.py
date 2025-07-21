@@ -35,58 +35,6 @@ def extract(metric):
             ys.append(entry[metric])
     return xs, ys
 
-def training():
-    dataset = load_dataset("lansinuote/ChnSentiCorp", cache_dir="data")
-
-    model_name = "bert-base-chinese"
-    tokenizer = BertTokenizer.from_pretrained(model_name)
-    model = BertForSequenceClassification.from_pretrained(model_name, num_labels=2)
-
-    encoded_datasets = dataset.map(preprocess_function, batched=True)
-
-    training_args = TrainingArguments(
-        output_dir='./results',
-        num_train_epochs=3,
-        per_device_train_batch_size=8,
-        per_device_eval_batch_size=16,
-        warmup_steps=500,
-        weight_decay=0.01,
-        logging_dir='./logs',
-        logging_steps=10,
-        learning_rate=3e-5,
-        metric_for_best_model="f1",
-        eval_strategy="steps",
-        save_strategy="steps",
-        eval_steps=200,
-        save_steps=200,
-        load_best_model_at_end=True,
-    )
-
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=encoded_datasets['train'],
-        eval_dataset=encoded_datasets['validation'],
-        compute_metrics=eval_metric,
-    )
-
-    trainer.train()
-
-    train_metrics = trainer.evaluate(encoded_datasets["train"])
-    print(f"训练集 ➜  accuracy: {train_metrics['eval_accuracy']:.4f} | "
-          f"recall: {train_metrics['eval_recall']:.4f} | "
-          f"f1: {train_metrics['eval_f1']:.4f}")
-
-    test_metrics = trainer.evaluate(encoded_datasets["test"])
-    print(f"测试集 ➜  accuracy: {test_metrics['eval_accuracy']:.4f} | "
-          f"recall: {test_metrics['eval_recall']:.4f} | "
-          f"f1: {test_metrics['eval_f1']:.4f}")
-
-    # 保存模型参数
-    trainer.save_model()
-    tokenizer.save_pretrained(training_args.output_dir)
-
-
 if __name__ == '__main__':
     dataset = load_dataset("lansinuote/ChnSentiCorp", cache_dir="data")
     train_dataset = dataset['train']
