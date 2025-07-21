@@ -37,9 +37,6 @@ def extract(metric):
 
 def training():
     dataset = load_dataset("lansinuote/ChnSentiCorp", cache_dir="data")
-    train_dataset = dataset['train']
-    valid_dataset = dataset['validation']
-    test_dataset = dataset['test']
 
     model_name = "bert-base-chinese"
     tokenizer = BertTokenizer.from_pretrained(model_name)
@@ -73,22 +70,7 @@ def training():
         compute_metrics=eval_metric,
     )
 
-    hyper_params = {
-        "模型": model.__class__.__name__,
-        "隐藏层大小": getattr(model.config, "hidden_size", "N/A"),
-        "训练 epoch": training_args.num_train_epochs,
-        "训练 batch_size": training_args.per_device_train_batch_size,
-        "验证 batch_size": training_args.per_device_eval_batch_size,
-        "学习率": training_args.learning_rate,
-        "学习率 warm‑up 步数": training_args.warmup_steps,
-        "权重衰减": training_args.weight_decay,
-        "优化器": training_args.optim,
-        "设备": torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU",
-    }
-
     trainer.train()
-
-    history = trainer.state.log_history
 
     train_metrics = trainer.evaluate(encoded_datasets["train"])
     print(f"训练集 ➜  accuracy: {train_metrics['eval_accuracy']:.4f} | "
